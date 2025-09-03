@@ -2453,6 +2453,19 @@ if (keyboardDiv) {
     if (!keyVal) return;
     handleVirtualKey(keyVal);
   });
+
+  // On touch devices, click events may not fire or may be delayed. Listen
+  // for touchstart events and handle them immediately. Prevent the default
+  // behaviour to avoid the subsequent simulated mouse event.
+  keyboardDiv.addEventListener('touchstart', (ev) => {
+    const keyBtn = ev.target.closest('.key');
+    if (!keyBtn) return;
+    const keyVal = keyBtn.dataset.key;
+    if (!keyVal) return;
+    handleVirtualKey(keyVal);
+    // Prevent default so that the simulated click does not also fire
+    ev.preventDefault();
+  }, { passive: false });
 }
 
 /**

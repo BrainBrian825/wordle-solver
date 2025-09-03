@@ -251,6 +251,8 @@ main {
   text-transform: uppercase;
   cursor: pointer;
   user-select: none;
+  /* Enable immediate tap behaviour on touch devices and prevent double‑tap zoom */
+  touch-action: manipulation;
 }
 .key.special {
   flex: 1.5;
