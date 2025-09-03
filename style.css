@@ -221,6 +221,58 @@ main {
   margin-bottom: 6px;
 }
 
+/* On-screen keyboard styles */
+#keyboard {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.key {
+  flex: 1;
+  padding: 8px 6px;
+  min-width: 28px;
+  border: 1px solid var(--cell-unknown-border);
+  border-radius: 4px;
+  background-color: var(--cell-unknown-bg);
+  color: var(--cell-unknown-color);
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+}
+.key.special {
+  flex: 1.5;
+  font-size: 0.9rem;
+}
+.key:active {
+  background-color: var(--cell-present-bg);
+  border-color: var(--cell-present-border);
+  color: var(--cell-present-color);
+}
+
+/* Responsive adjustments for the on-screen keyboard on small screens */
+@media (max-width: 480px) {
+  .key {
+    padding: 6px 4px;
+    font-size: 0.8rem;
+  }
+  .key.special {
+    font-size: 0.75rem;
+  }
+}
+
 /* Responsive adjustments for small screens */
 @media (max-width: 480px) {
   header h1 {

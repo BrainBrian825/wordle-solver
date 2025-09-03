@@ -2415,6 +2415,7 @@ const suggestionsList = document.getElementById('suggestions');
 const hardToggle = document.getElementById('hardModeToggle');
 const themeToggle = document.getElementById('themeToggle');
 const clearButton = document.getElementById('clearButton');
+const keyboardDiv = document.getElementById('keyboard');
 
 // Initialise board with an empty row
 createNewRow();
@@ -2442,6 +2443,18 @@ clearButton.addEventListener('click', () => {
 // Listen for keyboard input
 document.addEventListener('keydown', handleKeyDown);
 
+// Listen for clicks on the on-screen keyboard. When a key button is clicked,
+// simulate the corresponding key press logic by invoking handleVirtualKey.
+if (keyboardDiv) {
+  keyboardDiv.addEventListener('click', (ev) => {
+    const keyBtn = ev.target.closest('.key');
+    if (!keyBtn) return;
+    const keyVal = keyBtn.dataset.key;
+    if (!keyVal) return;
+    handleVirtualKey(keyVal);
+  });
+}
+
 /**
  * Handle key presses for typing guesses. Accepts letters A–Z, backspace and
  * enter. When a valid word of length five is entered, it is validated against
@@ -2463,6 +2476,43 @@ function handleKeyDown(event) {
       updateCurrentRowDisplay();
     }
   } else if (key === 'Enter') {
+    if (currentLetters.length < 5) {
+      messageDiv.textContent = 'Not enough letters';
+      return;
+    }
+    const guessWord = currentLetters.join('');
+    if (!allowedGuesses.includes(guessWord)) {
+      messageDiv.textContent = 'Not in word list';
+      return;
+    }
+    finalizeGuess(guessWord);
+  }
+}
+
+/**
+ * Process input from the on-screen keyboard. This mirrors the behaviour of
+ * handleKeyDown() but accepts a simple string for the key rather than a
+ * keyboard event. Supported keys are alphabetic characters (A–Z),
+ * "Enter" and "Backspace".
+ * @param {string} keyVal - The key value from the on-screen keyboard.
+ */
+function handleVirtualKey(keyVal) {
+  // Reset any prior message
+  messageDiv.textContent = '';
+  // Letter input
+  if (/^[a-zA-Z]$/.test(keyVal)) {
+    if (currentLetters.length < 5) {
+      currentLetters.push(keyVal.toLowerCase());
+      updateCurrentRowDisplay();
+    }
+  } else if (keyVal === 'Backspace' || keyVal === '⌫') {
+    // Backspace behaviour
+    if (currentLetters.length > 0) {
+      currentLetters.pop();
+      updateCurrentRowDisplay();
+    }
+  } else if (keyVal === 'Enter') {
+    // Enter behaviour mirrors handleKeyDown
     if (currentLetters.length < 5) {
       messageDiv.textContent = 'Not enough letters';
       return;
