@@ -71,11 +71,34 @@ header h1 {
 }
 
 /* Individual toggle grouping label + switch */
+/*
+ * Layout for the toggle group.  The `gap` property controls the spacing
+ * between the slider component and its text label.  The label itself
+ * stays on a single line via `white-space: nowrap;` so that the knob
+ * never overlaps the text when the switch is tapped on mobile devices.
+ */
 .toggle {
   display: flex;
   align-items: center;
-  gap: 4px;
+  /* Provide enough space between the switch and its label to avoid
+     overlapping.  Increasing this value helps on small screens. */
+  gap: 8px;
   font-size: 0.9rem;
+}
+
+.toggle .label {
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  /* On very small screens, increase the gap slightly and reduce font size
+     so that the toggle contents fit comfortably without overlap. */
+  .toggle {
+    gap: 10px;
+  }
+  .toggle .label {
+    font-size: 0.85rem;
+  }
 }
 
 /* Clear button styling */
