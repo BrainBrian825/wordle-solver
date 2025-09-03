@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordle Solver</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Wordle Solver</h1>
+    <!-- Controls: Hard mode toggle, theme toggle and clear button -->
+    <div class="controls">
+      <div class="toggle">
+        <label class="switch">
+          <input type="checkbox" id="hardModeToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="label">Hard Mode</span>
+      </div>
+      <div class="toggle">
+        <label class="switch">
+          <input type="checkbox" id="themeToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="label">Light Mode</span>
+      </div>
+      <button id="clearButton" class="clear-button" type="button">Clear Last</button>
+    </div>
+  </header>
+  <main>
+    <div id="board" aria-label="Game board"></div>
+    <div id="message" role="alert"></div>
+    <section id="suggestions-section">
+      <h2>Suggestions</h2>
+      <ul id="suggestions"></ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

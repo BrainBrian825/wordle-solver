@@ -1,0 +1,238 @@
+/* Basic reset and typography */
+/* CSS variables for theming. Default (dark theme) values are defined here.
+   When body has the class .light-theme, overrides are provided below. */
+:root {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --cell-unknown-bg: #3a3a3c;
+  --cell-unknown-border: #3a3a3c;
+  --cell-unknown-color: #ffffff;
+  --cell-present-bg: #b59f3b;
+  --cell-present-border: #b59f3b;
+  --cell-present-color: #ffffff;
+  --cell-correct-bg: #538d4e;
+  --cell-correct-border: #538d4e;
+  --cell-correct-color: #ffffff;
+  --suggestion-bg: #2a2a2c;
+  --suggestion-border: #3a3a3c;
+}
+
+body.light-theme {
+  --bg-color: #fafafa;
+  --text-color: #333333;
+  --cell-unknown-bg: #d3d6da;
+  --cell-unknown-border: #d3d6da;
+  --cell-unknown-color: #000000;
+  --cell-present-bg: #c9b458;
+  --cell-present-border: #c9b458;
+  --cell-present-color: #ffffff;
+  --cell-correct-bg: #6aaa64;
+  --cell-correct-border: #6aaa64;
+  --cell-correct-color: #ffffff;
+  --suggestion-bg: #efefef;
+  --suggestion-border: #dddddd;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+header {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/* Controls container for toggles and buttons */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Individual toggle grouping label + switch */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+/* Clear button styling */
+.clear-button {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #888;
+  color: #fff;
+}
+
+.clear-button:hover {
+  background-color: #777;
+}
+
+/* Toggle switch styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+  background-color: #4caf50;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+main {
+  width: 100%;
+  max-width: 600px;
+}
+
+#board {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  gap: 4px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--cell-unknown-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  user-select: none;
+  background-color: var(--cell-unknown-bg);
+  color: var(--cell-unknown-color);
+}
+
+/* Color states matching Wordle */
+.cell.unknown {
+  background-color: var(--cell-unknown-bg);
+  border-color: var(--cell-unknown-border);
+  color: var(--cell-unknown-color);
+}
+
+.cell.present {
+  background-color: var(--cell-present-bg);
+  border-color: var(--cell-present-border);
+  color: var(--cell-present-color);
+}
+
+.cell.correct {
+  background-color: var(--cell-correct-bg);
+  border-color: var(--cell-correct-border);
+  color: var(--cell-correct-color);
+}
+
+#message {
+  min-height: 24px;
+  margin-top: 8px;
+  color: #d32f2f;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+#suggestions-section {
+  margin-top: 24px;
+}
+
+#suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#suggestions li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--suggestion-bg);
+  border: 1px solid var(--suggestion-border);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.6rem;
+  }
+  .cell {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+  }
+  .clear-button {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+}
