@@ -52,9 +52,15 @@ body {
 header {
   width: 100%;
   max-width: 600px;
+  /* Use flexbox so that the title and control bar sit beside each other on
+     larger screens.  These items can wrap onto multiple lines when the
+     viewport becomes narrow.  On small screens the layout will switch to
+     a column so the controls appear beneath the title rather than being
+     pushed off screen. */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 16px;
 }
 
@@ -68,6 +74,7 @@ header h1 {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 /* Individual toggle grouping label + switch */
@@ -98,6 +105,27 @@ header h1 {
   }
   .toggle .label {
     font-size: 0.85rem;
+  }
+}
+
+/* Responsive layout adjustments for the header on narrow screens.  When the
+   viewport width is below 600px, stack the title above the controls and
+   allow the control elements themselves to wrap onto multiple lines.  This
+   prevents the clear button from being pushed off the screen. */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .controls {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 8px;
+    gap: 8px;
+  }
+  .clear-button {
+    /* Allow the clear button to grow so it doesn’t wrap on its own */
+    flex: 1 0 auto;
   }
 }
 
